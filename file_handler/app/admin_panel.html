@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Admin Panel</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>File Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for uploaded_file in uploaded_files %}
+        <tr>
+          <td>{{ uploaded_file.id }}</td>
+          <td>{{ uploaded_file.file.name }}</td>
+          <td>
+            <a href="{% url 'download_file' uploaded_file.id %}">Download</a>
+            <a href="{% url 'open_file' uploaded_file.id %}">View</a>
+            <a href="#">Delete</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3">No files uploaded yet.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'upload_file' %}">Upload a file</a>
+{% endblock %}
